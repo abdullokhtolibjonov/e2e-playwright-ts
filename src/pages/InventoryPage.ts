@@ -1,6 +1,6 @@
-import { expect, Locator, Page } from "@playwright/test";
-import { BasePage } from "./BasePage";
-import { ROUTES } from "../constants/routes";
+import { expect, Locator, Page } from '@playwright/test';
+import { BasePage } from './BasePage';
+import { ROUTES } from '../constants/routes';
 
 export class InventoryPage extends BasePage {
     readonly pageTitle: Locator;
@@ -25,10 +25,13 @@ export class InventoryPage extends BasePage {
         await expect(this.inventoryItems).toHaveCount(6);
     }
 
-    async addProductToCart(productName: string): Promise<void> {
-    const product = this.inventoryItems.filter({ hasText: productName });
+    async open(): Promise<void> {
+        await this.page.goto(ROUTES.INVENTORY);
+    }
 
-    await expect(product).toBeVisible();
+    async addProductToCart(productName: string): Promise<void> {
+        const product = this.inventoryItems.filter({ hasText: productName });
+        await expect(product).toBeVisible();
         await product.getByRole('button', { name: 'Add to cart' }).click();
     }
 

@@ -9,6 +9,7 @@ type CustomerInfo = {
 };
 
 export class CheckoutPage extends BasePage {
+  readonly pageTitle: Locator;
   readonly firstNameInput: Locator;
   readonly lastNameInput: Locator;
   readonly postalCodeInput: Locator;
@@ -20,6 +21,7 @@ export class CheckoutPage extends BasePage {
   constructor(page: Page) {
     super(page);
 
+    this.pageTitle = page.locator('[data-test="title"]');
     this.firstNameInput = page.locator('[data-test="firstName"]');
     this.lastNameInput = page.locator('[data-test="lastName"]');
     this.postalCodeInput = page.locator('[data-test="postalCode"]');
@@ -31,7 +33,7 @@ export class CheckoutPage extends BasePage {
 
   async expectInformationPageLoaded(): Promise<void> {
     await this.expectUrlContains(ROUTES.CHECKOUT_STEP_ONE);
-    await expect(this.page.locator('[data-test="title"]')).toHaveText('Checkout: Your Information');
+    await expect(this.pageTitle).toHaveText('Checkout: Your Information');
   }
 
   async fillCustomerInformation(customer: CustomerInfo): Promise<void> {
@@ -46,7 +48,7 @@ export class CheckoutPage extends BasePage {
 
   async expectOverviewPageLoaded(): Promise<void> {
     await this.expectUrlContains(ROUTES.CHECKOUT_STEP_TWO);
-    await expect(this.page.locator('[data-test="title"]')).toHaveText('Checkout: Overview');
+    await expect(this.pageTitle).toHaveText('Checkout: Overview');
   }
 
   async finishOrder(): Promise<void> {

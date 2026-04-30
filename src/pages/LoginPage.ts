@@ -1,6 +1,6 @@
-import { expect, Locator, Page } from "@playwright/test";
-import { BasePage } from "./BasePage";
-import { ROUTES } from "../constants/routes";
+import { expect, Locator, Page } from '@playwright/test';
+import { BasePage } from './BasePage';
+import { ROUTES } from '../constants/routes';
 
 export class LoginPage extends BasePage {
     readonly usernameInput: Locator;

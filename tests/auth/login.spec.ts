@@ -3,6 +3,8 @@ import { USERS } from '../../src/test-data/users';
 import { ERROR_MESSAGES } from '../../src/constants/messages';
 
 test.describe('Login', () => {
+  // Clear auth state so these tests always start from the login page
+  test.use({ storageState: { cookies: [], origins: [] } });
   test.beforeEach(async ({ loginPage }) => {
     await loginPage.open();
   });

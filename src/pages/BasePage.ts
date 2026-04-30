@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { expect, Page } from '@playwright/test';
 
 export abstract class BasePage {
     protected readonly page: Page;

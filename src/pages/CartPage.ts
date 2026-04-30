@@ -3,6 +3,7 @@ import { BasePage } from './BasePage';
 import { ROUTES } from '../constants/routes';
 
 export class CartPage extends BasePage {
+  readonly pageTitle: Locator;
   readonly cartItems: Locator;
   readonly checkoutButton: Locator;
   readonly continueShoppingButton: Locator;
@@ -10,6 +11,7 @@ export class CartPage extends BasePage {
   constructor(page: Page) {
     super(page);
 
+    this.pageTitle = page.locator('[data-test="title"]');
     this.cartItems = page.locator('[data-test="inventory-item"]');
     this.checkoutButton = page.locator('[data-test="checkout"]');
     this.continueShoppingButton = page.locator('[data-test="continue-shopping"]');
@@ -17,7 +19,7 @@ export class CartPage extends BasePage {
 
   async expectLoaded(): Promise<void> {
     await this.expectUrlContains(ROUTES.CART);
-    await expect(this.page.locator('[data-test="title"]')).toHaveText('Your Cart');
+    await expect(this.pageTitle).toHaveText('Your Cart');
   }
 
   async expectProductInCart(productName: string): Promise<void> {

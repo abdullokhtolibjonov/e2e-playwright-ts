@@ -1,12 +1,11 @@
 import { test } from '../../src/fixtures/test';
-import { USERS } from '../../src/test-data/users';
+import { PRODUCTS } from '../../src/test-data/products';
 import { CHECKOUT_CUSTOMER } from '../../src/test-data/checkoutData';
 import { CHECKOUT_MESSAGES } from '../../src/constants/messages';
 
 test.describe('Checkout', () => {
-  test.beforeEach(async ({ loginPage, inventoryPage }) => {
-    await loginPage.open();
-    await loginPage.login(USERS.STANDARD.username, USERS.STANDARD.password);
+  test.beforeEach(async ({ inventoryPage }) => {
+    await inventoryPage.open();
     await inventoryPage.expectLoaded();
   });
 
@@ -15,11 +14,11 @@ test.describe('Checkout', () => {
     cartPage,
     checkoutPage,
   }) => {
-    await inventoryPage.addProductToCart('Sauce Labs Backpack');
+    await inventoryPage.addProductToCart(PRODUCTS.BACKPACK);
     await inventoryPage.openCart();
 
     await cartPage.expectLoaded();
-    await cartPage.expectProductInCart('Sauce Labs Backpack');
+    await cartPage.expectProductInCart(PRODUCTS.BACKPACK);
     await cartPage.checkout();
 
     await checkoutPage.expectInformationPageLoaded();

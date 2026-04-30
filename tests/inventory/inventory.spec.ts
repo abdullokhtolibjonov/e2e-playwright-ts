@@ -1,24 +1,23 @@
 import { test, expect } from '../../src/fixtures/test';
-import { USERS } from '../../src/test-data/users';
+import { PRODUCTS } from '../../src/test-data/products';
 
 test.describe('Inventory', () => {
-  test.beforeEach(async ({ loginPage, inventoryPage }) => {
-    await loginPage.open();
-    await loginPage.login(USERS.STANDARD.username, USERS.STANDARD.password);
+  test.beforeEach(async ({ inventoryPage }) => {
+    await inventoryPage.open();
     await inventoryPage.expectLoaded();
   });
 
   test('user can add product to cart', async ({ inventoryPage }) => {
-    await inventoryPage.addProductToCart('Sauce Labs Backpack');
+    await inventoryPage.addProductToCart(PRODUCTS.BACKPACK);
 
     await inventoryPage.expectCartBadgeCount(1);
   });
 
   test('user can remove product from cart', async ({ inventoryPage }) => {
-    await inventoryPage.addProductToCart('Sauce Labs Backpack');
+    await inventoryPage.addProductToCart(PRODUCTS.BACKPACK);
     await inventoryPage.expectCartBadgeCount(1);
 
-    await inventoryPage.removeProductFromCart('Sauce Labs Backpack');
+    await inventoryPage.removeProductFromCart(PRODUCTS.BACKPACK);
 
     await expect(inventoryPage.cartBadge).toBeHidden();
   });
